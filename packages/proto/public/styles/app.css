@@ -1,0 +1,18 @@
+@import "tokens.css";
+
+@font-face {
+    font-family: 'Cherry Bomb One';
+    src: url("../fonts/CherryBombOne-Regular.ttf") format("truetype");
+}
+
+@font-face {
+    font-family: 'Outfit';
+    src: url("../fonts/Outfit-VariableFont_wght.ttf") format("truetype");
+}
+
+html {
+    color: var(--color-secondary);
+    background-color: var(--color-bg);
+
+    font-family: "Outfit", serif;
+}

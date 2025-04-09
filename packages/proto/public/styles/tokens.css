@@ -1,0 +1,24 @@
+:root {
+    --color-egg-yolk: #e98731;
+    --color-egg-yolk-DARK: #ce5b20;
+    --color-ash: #f9fdfe;
+    --color-stone: #a8afb5;
+    --color-charcoal: #242b31;
+    --color-sea-foam: #8adbef;
+
+    --color-accent: var(--color-egg-yolk);
+    --color-button: var(--color-egg-yolk);
+    --color-link: var(--color-egg-yolk);
+    --color-link-visited: var(--color-egg-yolk-DARK);
+
+    [data-theme="light"] {
+        --color-bg: var(--color-ash);
+        --color-secondary: var(--color-charcoal);
+    }
+
+    [data-theme="dark"] {
+        --color-bg: var(--color-charcoal);
+        --color-secondary: var(--color-ash);
+
+    }
+}
