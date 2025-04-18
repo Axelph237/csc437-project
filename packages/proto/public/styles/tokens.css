@@ -3,22 +3,31 @@
     --color-egg-yolk-DARK: #ce5b20;
     --color-ash: #f9fdfe;
     --color-stone: #a8afb5;
-    --color-charcoal: #242b31;
+    --color-charcoal: #212325;
     --color-sea-foam: #8adbef;
+    --color-lavender: #D3D3FF;
+    --color-lavender-DARK: #575799;
 
-    --color-accent: var(--color-egg-yolk);
-    --color-button: var(--color-egg-yolk);
-    --color-link: var(--color-egg-yolk);
-    --color-link-visited: var(--color-egg-yolk-DARK);
+    --color-accent: var(--color-lavender);
+    --color-button: var(--color-lavender);
+    --color-link: var(--color-lavender);
+    --color-link-visited: var(--color-lavender-DARK);
+    --color-header: var(--color-lavender-DARK);
+    --color-header-text: var(--color-lavender);
+}
 
-    [data-theme="light"] {
-        --color-bg: var(--color-ash);
-        --color-secondary: var(--color-charcoal);
-    }
+[data-theme="light"] {
+    --color-bg: var(--color-ash);
+    --color-secondary: var(--color-charcoal);
 
-    [data-theme="dark"] {
-        --color-bg: var(--color-charcoal);
-        --color-secondary: var(--color-ash);
+    --color-text: var(--color-charcoal);
+    --color-text-inverted: var(--color-ash);
+}
 
-    }
+[data-theme="dark"] {
+    --color-bg: var(--color-charcoal);
+    --color-secondary: var(--color-ash);
+
+    --color-text: var(--color-ash);
+    --color-text-inverted: var(--color-charcoal);
 }

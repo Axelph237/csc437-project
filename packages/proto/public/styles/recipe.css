@@ -7,12 +7,37 @@ a:visited {
     color: var(--color-link-visited);
 }
 
-.card {
-    padding: 15px;
-    margin: 10px;
-    border-radius: 15px;
-    width: fit-content;
+#recipe-label {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
 
-    background: var(--color-egg-yolk);
-    box-shadow: 0 2px 3px rgba(0, 0, 0, 0.3);
+    text-wrap: nowrap;
+
+    gap: 10px;
+
+    padding: 40px;
+
+    width: 100%;
+}
+
+#recipe-body {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    column-gap: 20px;
+
+    padding: 20px;
+
+    border-top: 1px solid var(--color-text);
+
+}
+
+#ingredients-container {
+    border-right: 1px solid var(--color-text);
+    padding: 10px;
+}
+
+#steps-container {
+    padding: 10px;
 }
