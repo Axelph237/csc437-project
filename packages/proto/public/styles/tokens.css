@@ -14,6 +14,11 @@
     --color-link-visited: var(--color-lavender-DARK);
     --color-header: var(--color-lavender-DARK);
     --color-header-text: var(--color-lavender);
+
+    --screen-sm: 40rem;
+    --screen-md: 48rem;
+    --screen-lg: 64rem;
+    --screen-xl: 80rem;
 }
 
 [data-theme="light"] {

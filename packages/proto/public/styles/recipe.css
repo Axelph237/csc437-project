@@ -23,8 +23,14 @@ a:visited {
 }
 
 #recipe-body {
-    display: grid;
-    grid-template-columns: 1fr 2fr;
+    display: flex;
+    flex-direction: column;
+
+    @media screen and (min-width: 48rem) {
+        display: grid;
+        grid-template-columns: 1fr 2fr;
+    }
+
     column-gap: 20px;
 
     padding: 20px;
