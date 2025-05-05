@@ -1,7 +1,7 @@
 @import "reset.css";
 @import "tokens.css";
 
-html {
+body {
     color: var(--color-text);
     background-color: var(--color-bg);
 

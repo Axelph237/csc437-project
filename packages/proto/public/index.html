@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="light">
+<html lang="en" data-theme="dark">
 <head>
     <meta charset="UTF-8">
     <title>Recipes</title>
@@ -13,6 +13,25 @@
     <link href="https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,300..900;1,300..900&family=Geologica:wght@100..900&family=Taviraj:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
 
     <link rel="stylesheet" type="text/css" href="styles/recipe.css"  />
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            console.log("Content loaded");
+
+            document.body.addEventListener("click", (event) => {
+                if (event.target.getAttribute("id") === "dark-mode-btn") {
+
+                    const currTheme = localStorage.getItem("csc437-theme");
+                    const newTheme = currTheme === "light" ? "dark" : "light"
+
+                    localStorage.setItem("csc437-theme", newTheme);
+                    event.currentTarget.setAttribute("data-theme", newTheme);
+                }
+            })
+        })
+
+
+    </script>
 </head>
 <body>
     <header>
@@ -21,6 +40,14 @@
                 <use href="icons.svg#icon-pot" />
             </svg>
         RECIPES
+
+            <label style="cursor: pointer;">
+                <svg class="icon">
+                    <use href="icons.svg#icon-dark-mode" />
+                </svg>
+                <input id="dark-mode-btn" type="button" autocomplete="off" style="display: none;"/>
+                Dark mode
+            </label>
         </span>
     </header>
 
