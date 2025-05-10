@@ -6,7 +6,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "npx vite",
     "build": "npx tsc && npx vite build",
-    "start": "http-server -c-1 -p 3000"
+    "start": "http-server dist -p 3000"
   },
   "author": "",
   "license": "ISC",
