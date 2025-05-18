@@ -31,4 +31,29 @@ function get(recipeId: String): Promise<Recipe> {
             });
 }
 
-export default { index, get };
+function create(json: Recipe): Promise<Recipe> {
+    const r = new RecipeModel(json);
+    return r.save();
+}
+
+function update(
+    recipeId: String,
+    recipe: Recipe
+): Promise<Recipe> {
+    return RecipeModel.findOneAndUpdate({ _id: recipeId }, recipe, {
+        new: true
+    }).then((updated) => {
+        if (!updated) throw `${recipeId} not updated`;
+        else return updated as Recipe;
+    });
+}
+
+function remove(recipeId: String): Promise<void> {
+    return RecipeModel.findOneAndDelete({ _id: recipeId }).then(
+        (deleted) => {
+            if (!deleted) throw `${recipeId} not deleted`;
+        }
+    );
+}
+
+export default { index, get, create, update, remove };
