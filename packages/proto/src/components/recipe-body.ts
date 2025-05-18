@@ -1,16 +1,7 @@
 import { html, css, LitElement } from "lit";
 import reset from "../styles/reset.css.ts";
 import { property, state } from "lit/decorators.js";
-
-interface Recipe {
-    name: string,
-    exampleImg?: string,
-    prepTime?: number,
-    cookTime?: number,
-    serves?: number,
-    ingredients: string[],
-    method: string[]
-}
+import {Recipe} from "../models/recipe.ts";
 
 export class RecipeBodyElement extends LitElement {
     @property()
