@@ -4,7 +4,7 @@ import { connect } from "./services/mongo";
 import Recipes from "./services/recipe-svc";
 // Routers
 import recipes from "./routes/recipes";
-
+import auth from "./routes/auth";
 // Definitions
 const app = express();
 const port = process.env.PORT || 3000;
@@ -18,6 +18,7 @@ app.use(express.json());
 
 // Route handlers
 app.use("/api/recipes", recipes);
+app.use("/auth", auth);
 
 // Root routes
 app.get("/hello", (req: Request, res: Response) => {

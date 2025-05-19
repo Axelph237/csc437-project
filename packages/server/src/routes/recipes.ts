@@ -3,6 +3,8 @@ import { Recipe } from "../models/recipe";
 
 import Recipes from "../services/recipe-svc";
 
+import { authenticateUser } from "./auth";
+
 const router = express.Router();
 
 // GET (collection)
@@ -22,7 +24,7 @@ router.get("/:recipeId", (req: Request, res: Response) => {
 });
 
 // CREATE
-router.post("/", (req: Request, res: Response) => {
+router.post("/", authenticateUser, (req: Request, res: Response) => {
     const newRecipe = req.body;
 
     Recipes.create(newRecipe)
@@ -33,7 +35,7 @@ router.post("/", (req: Request, res: Response) => {
 });
 
 // UPDATE
-router.put("/:recipeId", (req: Request, res: Response) => {
+router.put("/:recipeId", authenticateUser, (req: Request, res: Response) => {
     const { recipeId } = req.params;
     const newRecipe = req.body;
 
@@ -43,7 +45,7 @@ router.put("/:recipeId", (req: Request, res: Response) => {
 });
 
 // DELETE
-router.delete("/:recipeId", (req: Request, res: Response) => {
+router.delete("/:recipeId", authenticateUser, (req: Request, res: Response) => {
     const { recipeId } = req.params;
 
     Recipes.remove(recipeId)
