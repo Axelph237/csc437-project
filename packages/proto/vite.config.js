@@ -9,6 +9,7 @@ export default defineConfig({
         rollupOptions: {
             input: {
                 main: resolve(__dirname, 'index.html'),
+                login: resolve(__dirname, 'login.html'),
                 sub: resolve(__dirname, 'src/pages/chemistry.html'),
             },
         },

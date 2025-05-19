@@ -36,25 +36,24 @@
     </script>
 
     <script type="module">
-        import { define } from "@calpoly/mustang";
+        import { define, Auth } from "@calpoly/mustang";
         import { PageHeaderElement } from "/src/components/page-header.ts";
         import {RecipeBodyElement} from "./src/components/recipe-body";
 
         define({
             "page-header": PageHeaderElement,
-            "recipe-body": RecipeBodyElement
+            "recipe-body": RecipeBodyElement,
+            "mu-auth": Auth.Provider
         });
     </script>
 
 </head>
-<body>
-
-    <page-header>
-        <span slot="page-title">Beef Wellington</span>
-    </page-header>
-
-    <recipe-body src="api/recipes/682985b59b7e9c2537c0e992"></recipe-body>
-
-
-</body>
+    <body>
+        <mu-auth provides="recipes:auth">
+            <page-header>
+                <span slot="page-title">Beef Wellington</span>
+            </page-header>
+            <recipe-body src="api/recipes/682985b59b7e9c2537c0e992"></recipe-body>
+        </mu-auth>
+    </body>
 </html>
