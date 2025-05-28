@@ -12,7 +12,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,300..900;1,300..900&family=Geologica:wght@100..900&family=Taviraj:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
 
-    <link rel="stylesheet" type="text/css" href="public/styles/recipe.css"  />
+    <link rel="stylesheet" type="text/css" href="../public/styles/recipe.css"  />
 
     <script>
         document.addEventListener("DOMContentLoaded", () => {
@@ -28,17 +28,21 @@
                     event.currentTarget.setAttribute("data-theme", newTheme);
                 }
             })
+
+
         })
+
+
     </script>
 
     <script type="module">
         import { define, Auth } from "@calpoly/mustang";
-        import { PageHeaderElement } from "/src/components/page-header.ts";
-        import {RecipeCarouselElement} from "./src/components/recipe-carousel";
+        import { PageHeaderElement } from "../src/components/page-header.ts";
+        import {RecipeBodyElement} from "../src/components/recipe-body";
 
         define({
             "page-header": PageHeaderElement,
-            "recipe-carousel": RecipeCarouselElement,
+            "recipe-body": RecipeBodyElement,
             "mu-auth": Auth.Provider
         });
     </script>
@@ -47,9 +51,9 @@
     <body>
         <mu-auth provides="recipes:auth">
             <page-header>
-                <span slot="page-title">Home</span>
+                <span slot="page-title">Beef Wellington</span>
             </page-header>
-            <recipe-carousel src="/api/recipes"></recipe-carousel>
+            <recipe-body src="/api/recipes/682985b59b7e9c2537c0e992"></recipe-body>
         </mu-auth>
     </body>
 </html>

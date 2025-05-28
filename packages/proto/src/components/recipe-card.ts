@@ -3,7 +3,7 @@ import reset from "../styles/reset.css.ts";
 import { property, state } from "lit/decorators.js";
 import {Recipe} from "../models/recipe.ts";
 
-export class RecipeBodyElement extends LitElement {
+export class RecipeCardElement extends LitElement {
     @property()
     src?: string;
 

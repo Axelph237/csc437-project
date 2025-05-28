@@ -4,14 +4,48 @@ import { defineConfig } from 'vite'
 
 const __dirname = dirname(fileURLToPath(import.meta.url))
 
-export default defineConfig({
-    build: {
-        rollupOptions: {
-            input: {
-                main: resolve(__dirname, 'index.html'),
-                login: resolve(__dirname, 'login.html'),
-                sub: resolve(__dirname, 'src/pages/chemistry.html'),
+export default defineConfig(() => {
+    // Transforms all index.html files in codebase into equivalent rollup paths
+    const indexFilePaths = findFilesByExtension(__dirname, "index.html", ["dist"]);
+
+    let rollupInput = {  }
+    for (const path of indexFilePaths) {
+        const subPath = (path.split("proto"))[1] // Get latter half of directory after proto/
+        const subDir = subPath.slice(1, - ("/index.html".length)) // Remove /index.html from files
+
+        rollupInput[subDir || "main"] = path;
+    }
+
+    return {
+        build: {
+            rollupOptions: {
+                input: rollupInput
             },
         },
-    },
+    }
 })
+
+import fs from 'fs'
+import path from 'path'
+
+function findFilesByExtension(dir, extension, ignoredFiles = [], fileList = []) {
+    const files = fs.readdirSync(dir, { withFileTypes: true })
+
+    for (const file of files) {
+        if (ignoredFiles.includes(file.name))
+            continue;
+
+        // Get full path of file
+        const fullPath = path.join(dir, file.name)
+
+        if (file.isDirectory()) {
+            // Search through directory
+            findFilesByExtension(fullPath, extension, ignoredFiles, fileList)
+        } else if (file.isFile() && fullPath.endsWith(extension)) {
+            // Add file to array
+            fileList.push(fullPath)
+        }
+    }
+
+    return fileList
+}

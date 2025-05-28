@@ -18,7 +18,7 @@ export class PageHeaderElement extends LitElement {
           <!-- Website title -->
           <span style="height: min-content">
               <svg class="icon">
-                  <use href="icons.svg#icon-pot" />
+                  <use href="/icons.svg#icon-pot" />
               </svg>
               RECIPES
           </span>
@@ -31,7 +31,7 @@ export class PageHeaderElement extends LitElement {
           <!-- Dark/Light mode toggle -->
           <label style="cursor: pointer; user-select: none;">
               <svg class="icon">
-                  <use href="icons.svg#icon-dark-mode" />
+                  <use href="/icons.svg#icon-dark-mode" />
               </svg>
               <input id="dark-mode-btn" type="button" autocomplete="off" style="display: none;"/>
               light mode
