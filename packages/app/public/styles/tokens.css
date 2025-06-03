@@ -1,0 +1,42 @@
+:root {
+    --color-egg-yolk: #e98731;
+    --color-egg-yolk-DARK: #ce5b20;
+    --color-enemone: #f04737;
+    --color-ash: #f9fdfe;
+    --color-stone: #a8afb5;
+    --color-charcoal: #212325;
+    --color-sea-foam: #8adbef;
+    --color-lavender: #D3D3FF;
+    --color-lavender-DARK: #575799;
+
+    --color-accent: var(--color-lavender);
+    --color-button: var(--color-lavender);
+    --color-link: var(--color-lavender);
+    --color-link-visited: var(--color-lavender-DARK);
+    --color-header: var(--color-lavender-DARK);
+    --color-header-text: var(--color-lavender);
+    --color-error: var(--color-enemone);
+
+    --screen-sm: 40rem;
+    --screen-md: 48rem;
+    --screen-lg: 64rem;
+    --screen-xl: 80rem;
+
+    --size-spacing-medium: 20px;
+}
+
+[data-theme="light"] {
+    --color-bg: var(--color-ash);
+    --color-secondary: var(--color-charcoal);
+
+    --color-text: var(--color-charcoal);
+    --color-text-inverted: var(--color-ash);
+}
+
+[data-theme="dark"] {
+    --color-bg: var(--color-charcoal);
+    --color-secondary: var(--color-ash);
+
+    --color-text: var(--color-ash);
+    --color-text-inverted: var(--color-charcoal);
+}

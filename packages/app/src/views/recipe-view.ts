@@ -3,12 +3,16 @@ import reset from "../styles/reset.css.ts";
 import { property, state } from "lit/decorators.js";
 import {Recipe} from "../models/recipe.ts";
 
-export class RecipeCardElement extends LitElement {
-    @property()
-    src?: string;
+export class RecipeViewElement extends LitElement {
+    @property({ attribute: "recipe-id" })
+    recipeId?: string;
 
     @state()
     recipe: Recipe | undefined = undefined;
+
+    get src() {
+        return `/api/recipes/${this.recipeId}`;
+    }
 
     override render() {
         return html`
@@ -48,14 +52,17 @@ export class RecipeCardElement extends LitElement {
 
     connectedCallback() {
         super.connectedCallback();
-        if (this.src) this.hydrate(this.src);
+        console.log("Loaded src:", this.src);
+        if (this.recipeId) this.hydrate();
     }
 
-    hydrate(src: string) {
-        fetch(src)
+    hydrate() {
+        console.log("Fetching recipe...")
+        fetch(this.src)
             .then(res => res.json())
             .then((json: object) => {
                 if(json) {
+                    console.log("Found recipe", json);
                     this.recipe = json as Recipe;
                 }
             })
