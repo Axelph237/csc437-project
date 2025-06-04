@@ -1,14 +1,19 @@
-import { html, css, LitElement } from "lit";
+import { html, css } from "lit";
 import reset from "../styles/reset.css.ts";
 import { state } from "lit/decorators.js";
-import {Recipe} from "../models/recipe.ts";
+import {Msg} from "../messages.ts";
+import {View} from "@calpoly/mustang";
+import {Model} from "../model.ts";
+import {Recipe} from "server/models";
 
-export class LandingViewElement extends LitElement {
+export class LandingViewElement extends View<Model, Msg> {
     @state()
-    recipes: Recipe[] | undefined = undefined;
+    get recipes(): Recipe[] | undefined {
+        return this.model.recipeList;
+    }
 
-    get src() {
-        return `/api/recipes/`;
+    constructor() {
+        super("recipe:model");
     }
 
     override render() {
@@ -28,18 +33,8 @@ export class LandingViewElement extends LitElement {
 
     connectedCallback() {
         super.connectedCallback();
-        this.hydrate();
-    }
-
-    hydrate() {
-        fetch(this.src)
-            .then(res => res.json())
-            .then((json: object) => {
-                if(json) {
-                    this.recipes = json as Recipe[];
-                }
-            })
-            .catch(err => console.error(err))
+        console.log("Dispatching message...")
+        this.dispatchMessage([ "recipes/view" ]);
     }
 
     static styles = [ reset.styles, css`

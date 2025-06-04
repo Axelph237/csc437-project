@@ -1,13 +1,16 @@
 import {
     Auth,
     define,
-    History,
+    History, Store,
     Switch
 } from "@calpoly/mustang";
 import { html } from "lit";
 import { PageHeaderElement } from "./components/page-header";
 import {LandingViewElement} from "./views/landing-view.ts";
 import {RecipeViewElement} from "./views/recipe-view.ts";
+import update from "./update.ts";
+import {init, Model} from "./model.ts";
+import {Msg} from "./messages.ts";
 
 const routes = [
     {
@@ -36,6 +39,14 @@ define({
             super(routes, "recipe:history", "recipe:auth");
         }
     },
+    "mu-store": class AppStore
+        extends Store.Provider<Model, Msg>
+    {
+        constructor() {
+            super(update, init, "recipe:auth");
+        }
+    },
+    // Custom elements
     "page-header": PageHeaderElement,
     // Views
     "landing-view": LandingViewElement,

@@ -1,17 +1,22 @@
-import { html, css, LitElement } from "lit";
+import { html, css } from "lit";
 import reset from "../styles/reset.css.ts";
 import { property, state } from "lit/decorators.js";
-import {Recipe} from "../models/recipe.ts";
+import {Recipe} from "server/models";
+import {Msg} from "../messages.ts";
+import {View} from "@calpoly/mustang";
+import {Model} from "../model.ts";
 
-export class RecipeViewElement extends LitElement {
+export class RecipeViewElement extends View<Model, Msg> {
     @property({ attribute: "recipe-id" })
     recipeId?: string;
 
     @state()
-    recipe: Recipe | undefined = undefined;
+    get recipe(): Recipe | undefined {
+        return this.model.selectedRecipe;
+    }
 
-    get src() {
-        return `/api/recipes/${this.recipeId}`;
+    constructor() {
+        super("recipe:model");
     }
 
     override render() {
@@ -50,23 +55,23 @@ export class RecipeViewElement extends LitElement {
     `;
     }
 
-    connectedCallback() {
-        super.connectedCallback();
-        console.log("Loaded src:", this.src);
-        if (this.recipeId) this.hydrate();
-    }
-
-    hydrate() {
-        console.log("Fetching recipe...")
-        fetch(this.src)
-            .then(res => res.json())
-            .then((json: object) => {
-                if(json) {
-                    console.log("Found recipe", json);
-                    this.recipe = json as Recipe;
-                }
-            })
-            .catch(err => console.error(err))
+    attributeChangedCallback(
+        name: string,
+        oldValue: string,
+        newValue: string
+    ) {
+        super.attributeChangedCallback(name, oldValue, newValue);
+        if (
+            name === "recipe-id" &&
+            oldValue !== newValue &&
+            newValue
+        ) {
+            // Dispatch recipe selection message
+            this.dispatchMessage([
+                "recipe/select",
+                { recipeId: newValue }
+            ]);
+        }
     }
 
     static styles = [ reset.styles, css`
