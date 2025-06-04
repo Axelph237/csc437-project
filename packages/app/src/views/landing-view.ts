@@ -70,13 +70,10 @@ export class LandingViewElement extends View<Model, Msg> {
             
             overflow: hidden;
             
-            box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.5);
-            
             width: 100%;
             height: 150px;
             
             padding: 6px;
-            border-radius: 2rem;
             
             cursor: pointer;
         }
@@ -89,19 +86,18 @@ export class LandingViewElement extends View<Model, Msg> {
         }
         .recipe-card-bg {
             position: absolute;
-            
-            top: 0;
-            left: 0;
-            
-            width: 100%;
-            height: 100%;
-            
+            width: 200%;
+            height: 200%;
             object-fit: cover;
-            
             transition: all 100ms ease-in-out;
         }
         .recipe-card-bg:hover {
             filter: blur(4px) brightness(60%);
         }
+        a {
+            color: white;
+            text-decoration: none !important;
+        }
+        
     `];
 }

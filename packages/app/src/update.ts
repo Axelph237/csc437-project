@@ -13,7 +13,7 @@ export default function update(
         case "recipe/select":
             loadSelectedRecipe(message[1])
                 .then((selectedRecipe?: Recipe) => {
-                    apply((model) => ({ ...model, selectedRecipe }))
+                    apply((model) => ({ ...model, selectedRecipe, pageTitle: selectedRecipe!.name }))
                 })
             break;
         case "recipes/view":
@@ -22,7 +22,9 @@ export default function update(
                     apply((model) => ({ ...model, recipeList }))
                 })
             break;
-        // put the rest of your cases here
+        case "title/set":
+            apply((model) => ({ ...model, ...message[1] }))
+            break;
         default:
             throw new Error(`Unhandled Auth message`);
     }

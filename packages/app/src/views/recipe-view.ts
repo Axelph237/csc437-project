@@ -22,17 +22,19 @@ export class RecipeViewElement extends View<Model, Msg> {
     override render() {
         return html`
             <div>
-                <h1 class="recipe-label" style="background-image: url(${this.recipe?.exampleImg}); background-size: 100%">
-                    <svg width="100%" height="2" viewBox="0 0 10 2" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+                <div class="recipe-label">
+                    <div class="recipe-label-bg" style="background: url(${this.recipe?.exampleImg})"></div>
+                    
+                    <svg width="100%" height="2" viewBox="0 0 10 2" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg"  style="z-index: 99;">
                         <line x1="0" y1="1" x2="100" y2="1" stroke="currentColor" stroke-width="2" />
                     </svg>
                     
-                    ${this.recipe?.name.toUpperCase()}
+                    <h1 style="z-index: 99;">${this.recipe?.name.toUpperCase()}</h1>
                     
-                    <svg width="100%" height="2" viewBox="0 0 10 2" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+                    <svg width="100%" height="2" viewBox="0 0 10 2" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg"  style="z-index: 99;">
                         <line x1="0" y1="1" x2="100" y2="1" stroke="currentColor" stroke-width="2" />
                     </svg>
-                </h1>
+                </div>
 
                 <div class="recipe-body">
                     <div class="ingredients-container">
@@ -76,18 +78,25 @@ export class RecipeViewElement extends View<Model, Msg> {
 
     static styles = [ reset.styles, css`
         .recipe-label {
+            position: relative;
             display: flex;
             flex-direction: row;
             justify-content: center;
             align-items: center;
-
             text-wrap: nowrap;
-
             gap: 10px;
-
             padding: 40px;
-
             width: 100%;
+            height: 300px;
+            overflow: hidden;
+        }
+        .recipe-label-bg {
+            content: "";
+            position: absolute;
+            inset: -10px;
+            filter: blur(4px) brightness(70%);
+            pointer-events: none;
+            z-index: 0;
         }
 
         .recipe-body {
@@ -114,6 +123,22 @@ export class RecipeViewElement extends View<Model, Msg> {
 
         .steps-container {
             padding: 10px;
+        }
+
+        .cutout-text {
+            --img-url: url("/");
+            font-size: 4rem;
+            text-wrap: wrap;
+            font-weight: bold;
+            background: var(--img-url) no-repeat center center;
+            background-size: cover;
+
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+
+            /* Optional for Firefox */
+            background-clip: text;
+            color: transparent;
         }
     `];
 }

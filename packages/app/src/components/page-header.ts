@@ -1,9 +1,11 @@
-import { html, css, LitElement } from "lit";
+import { html, css } from "lit";
 import reset from "../styles/reset.css.ts";
 import {state} from "lit/decorators.js";
-import {Auth, Events, Observer} from "@calpoly/mustang";
+import {Auth, Events, Observer, View} from "@calpoly/mustang";
+import {Model} from "../model.ts";
+import {Msg} from "../messages.ts";
 
-export class PageHeaderElement extends LitElement {
+export class PageHeaderElement extends View<Model, Msg> {
     _authObserver = new Observer<Auth.Model>(this, "recipes:auth");
 
     @state()
@@ -12,30 +14,29 @@ export class PageHeaderElement extends LitElement {
     @state()
     userid?: string;
 
+    @state()
+    get pageTitle(): string | undefined {
+        return this.model.pageTitle;
+    }
+
     override render() {
         return html`
       <header>
           <!-- Website title -->
-          <span style="height: min-content">
+          <a style="height: min-content; user-select: none; color: white; text-decoration: none;" href="/">
               <svg class="icon">
-                  <use href="/icons.svg#icon-pot" />
+                  <use href="/icons/icons.svg#icon-pot" />
               </svg>
               RECIPES
-          </span>
+          </a>
           
           <!-- Page title -->
-          <slot name="page-title">
-              Page Title
-          </slot>
+          ${this.pageTitle && html`<h2 id="page-title">
+              ${this.pageTitle}
+          </h2>`}
           
           <!-- Dark/Light mode toggle -->
-          <label style="cursor: pointer; user-select: none;">
-              <svg class="icon">
-                  <use href="/icons.svg#icon-dark-mode" />
-              </svg>
-              <input id="dark-mode-btn" type="button" autocomplete="off" style="display: none;"/>
-              light mode
-          </label>
+          ${this.renderDarkModeButton()}
           
         <!-- User -->
           <span>${this.userid || "User"}</span>
@@ -46,6 +47,25 @@ export class PageHeaderElement extends LitElement {
           }
       </header>
     `;
+    }
+
+    renderDarkModeButton() {
+        const handleClickEvent = () => {
+            const currTheme = localStorage.getItem("csc437-theme");
+            const newTheme = currTheme === "light" ? "dark" : "light"
+
+            localStorage.setItem("csc437-theme", newTheme);
+            document.body.setAttribute("data-theme", newTheme);
+        }
+
+        return html`
+            <button @click=${handleClickEvent} id="dark-mode-btn" style="cursor: pointer; user-select: none;">
+                <svg class="icon">
+                    <use href="/icons/icons.svg#icon-dark-mode" />
+                </svg>
+                light mode
+            </button>
+        `
     }
 
     renderSignOutButton() {
@@ -61,10 +81,12 @@ export class PageHeaderElement extends LitElement {
     }
 
     renderSignInButton() {
+        // Navigation done programmatically to force page reload
+        // And load static .html file
         return html`
-            <a href="/login.html">
-                Sign In…
-            </a>
+            <button @click=${() => { window.location.href = "/login" }}>
+                Sign In...
+            </button>
         `;
     }
 
@@ -103,6 +125,8 @@ export class PageHeaderElement extends LitElement {
             font-weight: 600;
             font-size: 1.5rem;
             color: var(--color-header-text);
+            
+            z-index: 999;
         }
 
         svg.icon {
