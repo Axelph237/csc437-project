@@ -4,13 +4,11 @@
     <meta charset="utf-8" />
     <script type="module">
         import { define, Auth } from "@calpoly/mustang";
-        import { LoginFormElement } from "./login-form";
-
-        console.log("Running script on login page")
+        import { NewUserFormElement } from "./newuser-form";
 
         define({
             "mu-auth": Auth.Provider,
-            "login-form": LoginFormElement
+            "signup-form": NewUserFormElement
         });
     </script>
 </head>
@@ -18,7 +16,7 @@
 <mu-auth>
     <h2>User Login</h2>
     <main class="card">
-        <login-form api="/auth/login">
+        <signup-form api="/auth/register">
             <label>
                 <span>Username:</span>
                 <input name="username" autocomplete="off" />
@@ -27,11 +25,15 @@
                 <span>Password:</span>
                 <input type="password" name="password" />
             </label>
-        </login-form>
+            <label>
+                <span>Confirm Password:</span>
+                <input type="password" name="confirmPassword" />
+            </label>
+        </signup-form>
     </main>
     <p
     >Or did you want to
-        <button onclick="window.location.href = '/newuser/index.html'">Sign up as a new user</button>?
+        <a href="login.html">Login</a>?
     </p>
 </mu-auth>
 </body>

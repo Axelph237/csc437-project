@@ -5,6 +5,7 @@
     --color-ash: #f9fdfe;
     --color-stone: #a8afb5;
     --color-charcoal: #212325;
+    --color-coal: #191a1c;
     --color-sea-foam: #8adbef;
     --color-lavender: #D3D3FF;
     --color-lavender-DARK: #575799;
@@ -31,6 +32,8 @@
 
     --color-text: var(--color-charcoal);
     --color-text-inverted: var(--color-ash);
+
+    --color-input: var(--color-stone);
 }
 
 [data-theme="dark"] {
@@ -39,4 +42,6 @@
 
     --color-text: var(--color-ash);
     --color-text-inverted: var(--color-charcoal);
+
+    --color-input: var(--color-coal);
 }

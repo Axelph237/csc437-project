@@ -1,4 +1,4 @@
-import { Update } from "@calpoly/mustang";
+import {Auth, Update} from "@calpoly/mustang";
 import { Msg } from "./messages";
 import { Model } from "./model";
 import {Recipe} from "server/models";
@@ -6,7 +6,7 @@ import {Recipe} from "server/models";
 export default function update(
     message: Msg,
     apply: Update.ApplyMap<Model>,
-    // user: Auth.User
+    user: Auth.User
 ) {
     console.log("Update message received");
     switch (message[0]) {
@@ -25,8 +25,20 @@ export default function update(
         case "title/set":
             apply((model) => ({ ...model, ...message[1] }))
             break;
+        case "recipe/create":
+            createRecipe(message[1], user)
+                .then((recipe?: Recipe) => {
+                    const { onSuccess } = message[1]
+                    if (onSuccess) onSuccess();
+                })
+                .catch((err: Error) => {
+                    const { onFailure } = message[1];
+                    if (onFailure) onFailure(err);
+                })
+            break;
         default:
-            throw new Error(`Unhandled Auth message`);
+            const unhandled: never = message[0]; // <-- never type
+            throw new Error(`Unhandled message "${unhandled}"`);
     }
 }
 
@@ -49,7 +61,6 @@ function loadSelectedRecipe(
 }
 
 function loadRecipeList() {
-    console.log("Loading recipe list....")
     return fetch("/api/recipes")
         .then(res => {
             if (res.ok) {
@@ -63,4 +74,34 @@ function loadRecipeList() {
                 return json as Recipe[];
             }
         })
+}
+
+function createRecipe(
+    msg: {
+        userId: string,
+        recipe: Recipe
+    },
+    user: Auth.User
+) {
+    return fetch("/api/recipes", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+            ...Auth.headers(user)
+        },
+        body: JSON.stringify(msg.recipe)
+    })
+        .then(res => {
+            if (res.ok) {
+                return res.json()
+            }
+            return undefined;
+        })
+        .then((json: unknown) => {
+            if (json) {
+                console.log("Created recipe", json)
+                return json as Recipe;
+            }
+        })
+
 }

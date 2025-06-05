@@ -23,6 +23,7 @@ const credentialModel = model<Credential>(
 );
 
 function create(username: string, password: string): Promise<Credential> {
+    console.log("Creating user")
     return credentialModel
         .find({ username })
         .then((found: Credential[]) => {

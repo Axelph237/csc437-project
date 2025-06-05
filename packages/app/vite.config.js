@@ -16,6 +16,8 @@ export default defineConfig(() => {
         rollupInput[subDir || "main"] = path;
     }
 
+    console.log("Rolling up paths:", rollupInput);
+
     return {
         build: {
             rollupOptions: {
