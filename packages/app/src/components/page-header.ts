@@ -6,7 +6,7 @@ import {Model} from "../model.ts";
 import {Msg} from "../messages.ts";
 
 export class PageHeaderElement extends View<Model, Msg> {
-    _authObserver = new Observer<Auth.Model>(this, "recipes:auth");
+    _authObserver = new Observer<Auth.Model>(this, "recipe:auth");
 
     @state()
     loggedIn = false;
@@ -84,7 +84,7 @@ export class PageHeaderElement extends View<Model, Msg> {
         // Navigation done programmatically to force page reload
         // And load static .html file
         return html`
-            <button @click=${() => { window.location.href = "/login" }}>
+            <button @click=${() => { window.location.href = "/login/" }}>
                 Sign In...
             </button>
         `;
@@ -95,6 +95,7 @@ export class PageHeaderElement extends View<Model, Msg> {
 
         this._authObserver.observe((auth: Auth.Model) => {
             const { user } = auth;
+            console.log("User:", user);
 
             if (user && user.authenticated ) {
                 this.loggedIn = true;

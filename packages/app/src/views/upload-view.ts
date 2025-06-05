@@ -57,12 +57,12 @@ export class UploadViewElement extends View<Model, Msg> {
 
                     <label>
                         Ingredients
-                        <input type="text" placeholder="Enter ingredients (separated by new lines)" name="ingredients"  />
+                        <input type="text" placeholder="Enter ingredients (separated by semicolons)" name="ingredients"  />
                     </label>
 
                     <label>
                         Steps
-                        <input type="text" placeholder="Enter steps (separated by new lines)" name="method"  />
+                        <input type="text" placeholder="Enter steps (separated by semicolons)" name="method"  />
                     </label>
                     
                 </mu-form>
@@ -71,10 +71,14 @@ export class UploadViewElement extends View<Model, Msg> {
     }
 
     handleSubmit(event: Form.SubmitEvent<Recipe>) {
+        const newRecipe = event.detail as Recipe;
+        newRecipe.method = event.detail.method.split(";");
+        newRecipe.ingredients = event.detail.ingredients.split(";");
+
         this.dispatchMessage([
             "recipe/create",
             {
-                recipe: event.detail,
+                recipe: newRecipe,
                 userId: this.userId!,
                 onSuccess: () => console.log("Upload success"),
                 onFailure: (error: Error) =>

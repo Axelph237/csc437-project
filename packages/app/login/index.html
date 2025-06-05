@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <title>Recipes | Login</title>
+    <link rel="icon" href="/icons/pageicon.svg" type="image/svg+xml" />
     <meta charset="utf-8" />
     <script type="module">
         import { define, Auth } from "@calpoly/mustang";
@@ -16,7 +18,7 @@
 </head>
 <body class="page">
 <mu-auth>
-    <h2>User Login</h2>
+    <h2>Create New User</h2>
     <main class="card">
         <login-form api="/auth/login">
             <label>
@@ -31,7 +33,10 @@
     </main>
     <p
     >Or did you want to
-        <button onclick="window.location.href = '/newuser/index.html'">Sign up as a new user</button>?
+        <a href="/newuser/">Sign up as a new user</a>?
+    </p>
+    <p>
+        <a href="/app">Home</a>
     </p>
 </mu-auth>
 </body>
