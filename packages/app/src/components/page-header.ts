@@ -137,5 +137,20 @@ export class PageHeaderElement extends View<Model, Msg> {
             vertical-align: center;
             fill: currentColor;
         }
+        
+        button {
+            background: var(--color-button);
+            color: var(--color-charcoal);
+            padding: 10px 20px;
+            border: none;
+            border-radius: 1.5rem;
+            transition: all;
+            transition-duration: 150ms;
+            box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.2);
+            font-weight: bold;
+        }
+        button:hover {
+            background: var(--color-button-hover);
+        }
     `];
 }

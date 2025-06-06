@@ -7,16 +7,18 @@
     --color-charcoal: #212325;
     --color-coal: #191a1c;
     --color-sea-foam: #8adbef;
+    --color-sky: #73b6d5;
     --color-lavender: #D3D3FF;
     --color-lavender-DARK: #575799;
 
     --color-accent: var(--color-lavender);
-    --color-button: var(--color-lavender);
     --color-link: var(--color-lavender);
     --color-link-visited: var(--color-lavender-DARK);
     --color-header: var(--color-lavender-DARK);
     --color-header-text: var(--color-lavender);
     --color-error: var(--color-enemone);
+    --color-button: var(--color-sea-foam);
+    --color-button-hover: var(--color-sky);
 
     --screen-sm: 40rem;
     --screen-md: 48rem;
@@ -34,6 +36,7 @@
     --color-text-inverted: var(--color-ash);
 
     --color-input: var(--color-stone);
+
 }
 
 [data-theme="dark"] {

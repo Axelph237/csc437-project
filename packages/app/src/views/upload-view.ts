@@ -1,19 +1,25 @@
 import { html, css } from "lit";
 import reset from "../styles/reset.css.ts";
-import { property, state } from "lit/decorators.js";
+import app from "../styles/app.css.ts";
+import { state } from "lit/decorators.js";
 import {Recipe} from "server/models";
 import {Msg} from "../messages.ts";
-import {define, Form, View} from "@calpoly/mustang";
+import {Auth, define, Form, Observer, View} from "@calpoly/mustang";
 import {Model} from "../model.ts";
 import {Credential} from "server/models";
 
 export class UploadViewElement extends View<Model, Msg> {
+    _authObserver = new Observer<Auth.Model>(this, "recipe:auth");
+
     static uses = define({
         "mu-form": Form.Element,
     });
 
-    @property({ attribute: "user-id" })
+    @state()
     userId?: string;
+
+    @state()
+    errMsg?: string;
 
     @state()
     get profile(): Credential | undefined {
@@ -66,14 +72,56 @@ export class UploadViewElement extends View<Model, Msg> {
                     </label>
                     
                 </mu-form>
+                ${this.errMsg && html`<p>${this.errMsg}</p>`}
             </main>
     `;
     }
 
+    connectedCallback() {
+        super.connectedCallback();
+
+        this._authObserver.observe((auth: Auth.Model) => {
+            const { user } = auth;
+
+            if (user && user.authenticated ) {
+                this.userId = user.username;
+            } else {
+                this.userId = undefined;
+            }
+        });
+    }
+
     handleSubmit(event: Form.SubmitEvent<Recipe>) {
         const newRecipe = event.detail as Recipe;
-        newRecipe.method = event.detail.method.split(";");
-        newRecipe.ingredients = event.detail.ingredients.split(";");
+
+        console.log("User:", this.userId)
+
+        if (!this.userId) {
+            this.errMsg = "You must be signed in to create a recipe";
+            return;
+        }
+
+        if (!newRecipe.name) {
+            this.errMsg = "Please provide recipe name";
+            return;
+        }
+
+        if (event.detail.ingredients) {
+            newRecipe.ingredients = event.detail.ingredients.split(";");
+        }
+        else {
+            this.errMsg = "Please provide recipe ingredients";
+            return;
+        }
+
+        if (event.detail.method) {
+            newRecipe.method = event.detail.method.split(";");
+        }
+        else {
+            this.errMsg = "Please provide recipe method";
+            return;
+        }
+
 
         this.dispatchMessage([
             "recipe/create",
@@ -81,14 +129,16 @@ export class UploadViewElement extends View<Model, Msg> {
                 recipe: newRecipe,
                 userId: this.userId!,
                 onSuccess: () => console.log("Upload success"),
-                onFailure: (error: Error) =>
+                onFailure: (error: Error) => {
                     console.log("ERROR:", error)
+                    this.errMsg = "Failed to upload recipe"
+                }
             }
         ]);
     }
 
 
-    static styles = [ reset.styles, css`
+    static styles = [ reset.styles, app.styles, css`
         .page {
             width: 100%;
             

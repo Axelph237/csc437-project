@@ -1,0 +1,71 @@
+import {css} from "lit";
+
+const styles = css`
+    @import "reset.css";
+    @import "tokens.css";
+
+    body {
+        color: var(--color-text);
+        background-color: var(--color-bg);
+
+        font-family: "Figtree", serif;
+        font-size: 1.15rem;
+    }
+
+    h1 {
+        font-family: "Geologica", serif;
+        font-weight: 900;
+    }
+
+    h2 {
+        font-family: "Figtree", serif;
+        font-weight: 300;
+    }
+
+    header {
+        position: sticky;
+        top: 0;
+
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+
+        padding: 10px;
+
+        width: 100%;
+        background: var(--color-header);
+
+        font-family: "Geologica", serif;
+        font-weight: 600;
+        font-size: 1.5rem;
+        color: var(--color-header-text);
+    }
+
+    svg.icon {
+        display: inline;
+        height: 1em;
+        width: 1em;
+        vertical-align: center;
+        fill: currentColor;
+    }
+
+    input {
+        top: 0;
+        left: 0;
+
+        width: 100%;
+
+        background: var(--color-input);
+        color: var(--color-text);
+
+        outline: none;
+        border: 0;
+        border-radius: 1rem;
+        box-shadow: inset 3px 3px 3px rgba(0, 0, 0, 0.5);
+
+        padding: 15px;
+    }
+`
+
+export default { styles }

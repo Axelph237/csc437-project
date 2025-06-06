@@ -5,4 +5,4 @@ export type Msg =
     | ["recipes/view"]
     | ["recipe/select", { recipeId: string }]
     | ["recipe/create", { recipe: Recipe, userId: string, onSuccess?: () => any, onFailure?: (error: Error) => void }]
-    | ["recipe/delete", { recipeId: string }]
+    // | ["recipe/delete", { recipeId: string }]

@@ -27,6 +27,11 @@ export class LandingViewElement extends View<Model, Msg> {
                         </li>
                     </a>
                 `)}
+                <a href="/app/upload">
+                    <li class="add-card">
+                        <h2>Add New Recipe</h2>
+                    </li>
+                </a>
             </ul>
     `;
     }
@@ -63,6 +68,8 @@ export class LandingViewElement extends View<Model, Msg> {
         .recipe-card {
             position: relative;
             
+            border-radius: 1rem;
+            
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -93,6 +100,37 @@ export class LandingViewElement extends View<Model, Msg> {
         }
         .recipe-card-bg:hover {
             filter: blur(4px) brightness(60%);
+        }
+        .add-card {
+            position: relative;
+            
+            border: 2px dashed;
+            border-color: var(--color-text);
+            border-radius: 1rem;
+
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+
+            overflow: hidden;
+
+            width: 100%;
+            height: 150px;
+
+            padding: 6px;
+
+            cursor: pointer;
+            
+            transition: all;
+            transition-duration: 150ms;
+        }
+        .add-card > h2 {
+            font-size: 1.25rem;
+        }
+        .add-card:hover {
+            border-color: var(--color-lavender-DARK);
+            color: var(--color-lavender-DARK);
         }
         a {
             color: white;

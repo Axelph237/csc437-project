@@ -21,9 +21,9 @@ const routes = [
         `
     },
     {
-        path: "/app/recipes/upload",
-        view: (user: Auth.User) => html`
-            <upload-view user-id=${user.username} ></upload-view>
+        path: "/app/upload",
+        view: () => html`
+            <upload-view ></upload-view>
         `
     },
     {

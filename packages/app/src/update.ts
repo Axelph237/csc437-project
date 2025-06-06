@@ -91,11 +91,11 @@ function createRecipe(
         },
         body: JSON.stringify(msg.recipe)
     })
-        .then(res => {
+        .then(async res => {
             if (res.ok) {
                 return res.json()
             }
-            return undefined;
+            throw Error(await res.text())
         })
         .then((json: unknown) => {
             if (json) {
