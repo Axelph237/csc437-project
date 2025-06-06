@@ -4,7 +4,7 @@ import {
     History, Store,
     Switch
 } from "@calpoly/mustang";
-import { html } from "lit";
+import {html, TemplateResult} from "lit";
 import { PageHeaderElement } from "./components/page-header";
 import {LandingViewElement} from "./views/landing-view.ts";
 import {RecipeViewElement} from "./views/recipe-view.ts";
@@ -38,7 +38,10 @@ const routes = [
     },
     {
         path: "/login.html",
-        view: () => { window.location.href = "/login/" } // not janky at all :)
+        view: (): TemplateResult<1> => {
+            window.location.href = "/login/";
+            return html``;
+        } // not janky at all :)
     }
 ];
 

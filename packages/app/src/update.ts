@@ -27,7 +27,7 @@ export default function update(
             break;
         case "recipe/create":
             createRecipe(message[1], user)
-                .then((recipe?: Recipe) => {
+                .then(() => {
                     const { onSuccess } = message[1]
                     if (onSuccess) onSuccess();
                 })
