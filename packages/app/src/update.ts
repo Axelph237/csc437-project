@@ -36,6 +36,18 @@ export default function update(
                     if (onFailure) onFailure(err);
                 })
             break;
+        case "recipe/delete":
+            deleteRecipe(message[1], user)
+                .then(() => {
+                    console.log("Successful delete")
+                    const { onSuccess } = message[1]
+                    if (onSuccess) onSuccess();
+                })
+                .catch((err: Error) => {
+                    const { onFailure } = message[1];
+                    if (onFailure) onFailure(err);
+                })
+            break;
         default:
             const unhandled: never = message[0]; // <-- never type
             throw new Error(`Unhandled message "${unhandled}"`);
@@ -102,6 +114,27 @@ function createRecipe(
                 console.log("Created recipe", json)
                 return json as Recipe;
             }
+        })
+
+}
+
+function deleteRecipe(
+    msg: {
+        recipeId: string
+    },
+    user: Auth.User
+) {
+    return fetch(`/api/recipes/${msg.recipeId}`, {
+        method: "DELETE",
+        headers: {
+            ...Auth.headers(user)
+        }
+    })
+        .then(async res => {
+            if (res.ok) {
+                return;
+            }
+            throw Error(await res.text())
         })
 
 }

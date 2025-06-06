@@ -99,14 +99,28 @@ export class LandingViewElement extends View<Model, Msg> {
             
             cursor: pointer;
         }
-        .recipe-card.owned {
-            
-        }
         .recipe-card > h2 {
             font-size: 1.25rem;
             display: none;
         }
         .recipe-card:hover > h2 {
+            display: block;
+        }
+        .recipe-card > * > svg {
+            display: none;
+            position: absolute;
+            width: 30px;
+            height: 30px;
+            bottom: 10px;
+            right: 10px;
+            color: white;
+            transition: all;
+            transition-duration: 150ms;
+        }
+        .recipe-card > * > svg:hover {
+            scale: 120%;
+        }
+        .recipe-card:hover > * > svg {
             display: block;
         }
         .recipe-card-bg {
