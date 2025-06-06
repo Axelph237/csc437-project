@@ -2,15 +2,20 @@ import { html, css } from "lit";
 import reset from "../styles/reset.css.ts";
 import { state } from "lit/decorators.js";
 import {Msg} from "../messages.ts";
-import {View} from "@calpoly/mustang";
+import {Auth, Observer, View} from "@calpoly/mustang";
 import {Model} from "../model.ts";
 import {Recipe} from "server/models";
 
 export class LandingViewElement extends View<Model, Msg> {
+    _authObserver = new Observer<Auth.Model>(this, "recipe:auth");
+
     @state()
     get recipes(): Recipe[] | undefined {
         return this.model.recipeList;
     }
+
+    @state()
+    userId?: string;
 
     constructor() {
         super("recipe:model");
@@ -21,7 +26,7 @@ export class LandingViewElement extends View<Model, Msg> {
             <ul id="recipe-carousel-container">
                 ${this.recipes?.map((recipe: Recipe) => html`
                     <a href="/app/recipe/${recipe._id}">
-                        <li class="recipe-card">
+                        <li class="recipe-card ${this.userId && recipe.author === this.userId && "owned"}">
                             <h2 style="z-index:99;pointer-events:none;">${recipe.name}</h2>
                             ${recipe.exampleImg && html`<img class="recipe-card-bg" alt="example img" src="${recipe.exampleImg}" />`}
                         </li>
@@ -38,7 +43,17 @@ export class LandingViewElement extends View<Model, Msg> {
 
     connectedCallback() {
         super.connectedCallback();
-        console.log("Dispatching message...")
+
+        this._authObserver.observe((auth: Auth.Model) => {
+            const { user } = auth;
+
+            if (user && user.authenticated ) {
+                this.userId = user.username;
+            } else {
+                this.userId = undefined;
+            }
+        });
+
         this.dispatchMessage([ "recipes/view" ]);
     }
 
@@ -84,6 +99,9 @@ export class LandingViewElement extends View<Model, Msg> {
             
             cursor: pointer;
         }
+        .recipe-card.owned {
+            
+        }
         .recipe-card > h2 {
             font-size: 1.25rem;
             display: none;
@@ -105,6 +123,7 @@ export class LandingViewElement extends View<Model, Msg> {
             position: relative;
             
             border: 2px dashed;
+            color: var(--color-text);
             border-color: var(--color-text);
             border-radius: 1rem;
 

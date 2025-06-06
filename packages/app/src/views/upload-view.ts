@@ -94,9 +94,11 @@ export class UploadViewElement extends View<Model, Msg> {
     handleSubmit(event: Form.SubmitEvent<Recipe>) {
         const newRecipe = event.detail as Recipe;
 
-        console.log("User:", this.userId)
-
-        if (!this.userId) {
+        if (this.userId) {
+            console.log("User:", this.userId)
+            newRecipe.author = this.userId;
+        }
+        else {
             this.errMsg = "You must be signed in to create a recipe";
             return;
         }
@@ -122,7 +124,7 @@ export class UploadViewElement extends View<Model, Msg> {
             return;
         }
 
-
+        console.log("Uploading recipe:", newRecipe)
         this.dispatchMessage([
             "recipe/create",
             {

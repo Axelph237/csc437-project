@@ -4,6 +4,7 @@ import {Recipe} from "../models/recipe";
 const RecipeSchema = new Schema<Recipe>(
     {
         name: { type: String, required: true, trim: true },
+        author: { type: String },
         exampleImg: { type: String, trim: true },
         prepTime: Number,
         cookTime: Number,
@@ -32,6 +33,7 @@ function get(recipeId: String): Promise<Recipe> {
 }
 
 function create(json: Recipe): Promise<Recipe> {
+    console.log("Creating recipe:", json);
     const r = new RecipeModel(json);
     return r.save();
 }
