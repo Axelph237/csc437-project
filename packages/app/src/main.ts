@@ -35,6 +35,10 @@ const routes = [
     {
         path: "/",
         redirect: "/app"
+    },
+    {
+        path: "/login.html",
+        view: () => { window.location.href = "/login/" } // not janky at all :)
     }
 ];
 
