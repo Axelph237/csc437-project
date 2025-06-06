@@ -112,21 +112,5 @@ export class UploadViewElement extends View<Model, Msg> {
         label {
             gap: 0;
         }
-        input {
-            top: 0;
-            left: 0;
-            
-            width: 100%;
-            
-            background: var(--color-input);
-            color: var(--color-text);
-            
-            outline: none;
-            border: 0;
-            border-radius: 1rem;
-            box-shadow: inset 3px 3px 3px rgba(0, 0, 0, 0.5);
-            
-            padding: 15px;
-        }
     `];
 }
